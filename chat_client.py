@@ -1,6 +1,7 @@
 import socket
 import select
 import errno
+import ssl 
 
 HEADER_LENGTH = 10
 
@@ -11,9 +12,13 @@ my_username = input("Username: ")
 # Create a socket
 # socket.AF_INET - address family, IPv4, some otehr possible are AF_INET6, AF_BLUETOOTH, AF_UNIX
 # socket.SOCK_STREAM - TCP, conection-based, socket.SOCK_DGRAM - UDP, connectionless, datagrams, socket.SOCK_RAW - raw IP packets
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Connect to a given ip and port
+
+client_socket = ssl.wrap_socket(sock, ssl_version=ssl.PROTOCOL_TLSv1, ciphers="ADH-AES256-SHA") 
+
+
 
 client_socket.connect((IP, PORT))
 
